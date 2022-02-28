@@ -1,0 +1,49 @@
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row mb-2 mt-1 p-2">
+      <div class="col-2">
+        <select
+          class="row row-cols-1 form-select"
+          aria-label="Default select example"
+        >
+          <option selected>Sırala</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Film ara..."
+          aria-label="Search"
+        />
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <ng-container *ngFor="let movie of movies$ | async; let i = index">
+        <div class="col">
+          <div class="card shadow-sm">
+            <div
+              (mouseenter)="hoverIdx = i"
+              (mouseleave)="hoverIdx = -1"
+              class="container"
+            >
+              <img [src]="movie.image" />
+              <div
+                [ngClass]="{ 'overlay-icon': true, hide: hoverIdx !== i }"
+                class="overlay"
+              >
+              <img class="delete-icon" src="../../../../assets/multiply.png" width="25" height="25">
+              <p class="title">{{ movie.name }}</p>
+                <p class="text">{{ movie.review }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

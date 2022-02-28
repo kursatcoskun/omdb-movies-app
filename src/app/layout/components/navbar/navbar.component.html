@@ -1,0 +1,52 @@
+<header class="p-3 bg-dark text-white">
+  <div class="container">
+    <div
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+    >
+      <a
+        href="/"
+        class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+      >
+        <img
+          class="bi me-2"
+          width="40"
+          height="32"
+          src="../../../../assets/movie-frame.png"
+        />
+      </a>
+
+      <ul
+        *ngIf="!!userInfo"
+        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+      >
+        <li>
+          <a
+            [routerLink]="['/movie/list']"
+            routerLinkActive="router-link-active"
+            class="nav-link px-2 text-white"
+            >Filmler</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/movie/add']"
+            routerLinkActive="router-link-active"
+            class="nav-link px-2 text-white"
+            >Yeni Film Ekle</a
+          >
+        </li>
+      </ul>
+
+      <div class="text-end">
+        <button
+          *ngIf="!!userInfo"
+          type="button"
+          (click)="logout()"
+          class="btn btn-warning me-2"
+        >
+          Çıkış Yap
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
