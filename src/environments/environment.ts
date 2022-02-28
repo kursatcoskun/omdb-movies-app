@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   omdbApiKey: '220bb24a',
   fakeRestEndPoint: 'http://localhost:3000',
+  omdbApiEndpoint: 'http://omdbapi.com',
 };
 
 /*

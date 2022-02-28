@@ -16,7 +16,7 @@
       </a>
 
       <ul
-        *ngIf="!!userInfo"
+        *ngIf="getUserInfo"
         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
       >
         <li>
@@ -39,7 +39,7 @@
 
       <div class="text-end">
         <button
-          *ngIf="!!userInfo"
+          *ngIf="getUserInfo"
           type="button"
           (click)="logout()"
           class="btn btn-warning me-2"

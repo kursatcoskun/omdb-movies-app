@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Movie } from 'src/app/shared/models';
+import { Movie, OmdbSearchResult } from 'src/app/shared/models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,11 +9,16 @@ import { environment } from 'src/environments/environment';
 })
 export class MovieService {
   public baseApi = `${environment.fakeRestEndPoint}/movies`;
+  public omdbApi = `${environment.omdbApiEndpoint}`;
 
   constructor(private http: HttpClient) {}
 
   public getAllMovies(): Observable<Movie[]> {
     return this.http.get<Movie[]>(this.baseApi);
+  }
+
+  public createMovie(payload: Movie) {
+    return this.http.post(`${this.baseApi}`, payload);
   }
 
   public updateMovie(payload: Movie) {
@@ -24,7 +29,13 @@ export class MovieService {
     return this.http.delete(`${this.baseApi}/${payload.id}`);
   }
 
-  public getById(id: number): Observable<Movie> {
+  public getById(id: string): Observable<Movie> {
     return this.http.get<Movie>(`${this.baseApi}/${id}`);
+  }
+
+  public searchMovies(movieTitle: string): Observable<OmdbSearchResult> {
+    return this.http.get<OmdbSearchResult>(
+      `${this.omdbApi}/?apiKey=${environment.omdbApiKey}&s=${movieTitle}`
+    );
   }
 }

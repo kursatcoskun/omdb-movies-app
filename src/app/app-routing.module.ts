@@ -14,7 +14,7 @@ const routes: Routes = [
       import('./movie/movie.module').then((m) => m.MovieModule),
     canActivate: [AuthGuard],
   },
-  { path: "**", redirectTo: "auth", pathMatch: "full" }
+  { path: "**", redirectTo: "/movie/list", pathMatch: "full" }
 ];
 
 @NgModule({

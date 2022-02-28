@@ -4,16 +4,18 @@
       <div class="col-2">
         <select
           class="row row-cols-1 form-select"
-          aria-label="Default select example"
+          aria-label="Sırala"
+          [(ngModel)]="filter"
+          (ngModelChange)="changeFilter()"
         >
-          <option selected>Sırala</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option selected value="default">Sırala</option>
+          <option value="low">Puana Göre - en düşük</option>
+          <option value="high">Puana Göre - en yüksek</option>
         </select>
       </div>
       <div class="col-3">
         <input
+          [(ngModel)]="searchText"
           type="search"
           class="form-control"
           placeholder="Film ara..."
@@ -23,27 +25,52 @@
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <ng-container *ngFor="let movie of movies$ | async; let i = index">
+      <ng-container
+        *ngFor="
+          let movie of (filter === 'default' ? sortedMovies$ : movies$)
+            | async
+            | searchFilter: searchText;
+          let i = index
+        "
+      >
         <div class="col">
           <div class="card shadow-sm">
             <div
+              style="cursor: pointer"
               (mouseenter)="hoverIdx = i"
               (mouseleave)="hoverIdx = -1"
               class="container"
             >
-              <img [src]="movie.image" />
+              <img [src]="movie?.image" (click)="navigateUpdate(movie)" />
               <div
                 [ngClass]="{ 'overlay-icon': true, hide: hoverIdx !== i }"
                 class="overlay"
               >
-              <img class="delete-icon" src="../../../../assets/multiply.png" width="25" height="25">
-              <p class="title">{{ movie.name }}</p>
-                <p class="text">{{ movie.review }}</p>
+                <img
+                  class="delete-icon"
+                  src="../../../../assets/multiply.png"
+                  width="25"
+                  height="25"
+                  (click)="delete(movie)"
+                />
+                <p class="title">{{ movie?.name }}</p>
+                <p class="text">{{ movie?.review }}</p>
               </div>
             </div>
           </div>
         </div>
       </ng-container>
+
+      <ng-container *ngIf="!(movies$ | async)?.length">
+        <h3 class="text-center mt-3 mb-3 p-3">Henüz içerik girilmedi.</h3>
+      </ng-container>
     </div>
+    <button
+      *ngIf="(movies$ | async)?.length"
+      (click)="viewMore()"
+      class="btn btn-primary mt-3"
+    >
+      Daha Fazla Göster
+    </button>
   </div>
 </div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListComponent } from './components';
 import { AddMovieComponent } from './components/add-movie/add-movie.component';
-import { MovieListResolver } from './resolvers';
+import { MovieListResolver, UpdateMovieResolver } from './resolvers';
 
 const routes: Routes = [
   {
@@ -17,12 +17,13 @@ const routes: Routes = [
   {
     path: 'update/:id',
     component: AddMovieComponent,
+    resolve: [UpdateMovieResolver],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [MovieListResolver],
+  providers: [MovieListResolver, UpdateMovieResolver],
 })
 export class MovieRoutingModule {}

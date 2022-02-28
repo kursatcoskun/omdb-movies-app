@@ -3,4 +3,5 @@ export interface Movie {
   review: number;
   name: string;
   image: string;
+  date: Date;
 }
